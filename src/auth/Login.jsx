@@ -6,7 +6,15 @@ import loginSchema from "utils/loginSchema";
 import Input from "common/Input";
 import Button from "common/Button";
 
+import { login } from "api/request.api";
+
+import UserContext from "store/context/UserContext";
+import { useContext } from "react";
+
+
 function Login() {
+    const { user, setUser } = useContext(UserContext);
+
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -32,12 +40,13 @@ function Login() {
             return false
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (isValid()) {
-            console.log("Login Attempt Made");
-            console.log(data);
+            const res = await login(data);
+            localStorage.setItem("token", res.data.accessToken);
+            setUser(res.data.user);
         } else {
             console.log("Form validation failed");
         }
@@ -78,6 +87,7 @@ function Login() {
                                     />
 
                                     <Button label="Login" type="submit" color="primary" />
+                                    { user?.name }
                                 </form>
                             </div>
                         </div>

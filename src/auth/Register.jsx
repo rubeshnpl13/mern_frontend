@@ -6,7 +6,12 @@ import registerSchema from "utils/registerSchema";
 import Input from "common/Input";
 import Button from "common/Button";
 
+import { register } from 'api/request.api';
+import { useNavigate } from "react-router-dom";
+
 function Register() {
+    const navigate = useNavigate();
+
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -34,12 +39,17 @@ function Register() {
             return false
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (isValid()) {
-            console.log("Register Attempt Made");
-            console.log(data);
+            try{
+                const res = await register(data);
+                navigate("/login");
+            }catch(err)
+            {
+                setErrors(err.response.data.error);
+            }
         } else {
             console.log("Form validation failed");
         }
