@@ -4,6 +4,10 @@ export const getUsers = () => {
     return http.get('/user');
 }
 
+export const deleteUser = (id) => {
+    return http.delete(`/user/${id}`);
+}
+
 export const register = (data) => {
     return http.post(`/register`, data);
 }

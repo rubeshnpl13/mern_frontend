@@ -45,6 +45,7 @@ function Register() {
         if (isValid()) {
             try{
                 const res = await register(data);
+                console.log(res);
                 navigate("/login");
             }catch(err)
             {

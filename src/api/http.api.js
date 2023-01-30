@@ -24,7 +24,8 @@ http.interceptors.response.use(
     function (response) {
         if (response.status === 200)
         {
-            toast.success(response.data.message);
+            if (response.data.message)
+                toast.success(response.data.message);
             return response.data;
         }
         else
