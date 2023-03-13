@@ -3,15 +3,14 @@ import { toast } from "react-toastify";
 
 // Create an axios instance
 const http = axios.create({
-    baseURL: "http://localhost:5000/api/v1",
+    baseURL: "http://localhost:3000/api/v1",
     timeout: 1000,
     headers: {
         "Content-Type": "application/json",
     },
 });
-
 http.interceptors.request.use(
-    function (config) {
+    function(config) {
         const token = localStorage.getItem("token");
         if (token) {
             config.headers["Authorization"] = `Bearer ${token}`;
@@ -21,23 +20,19 @@ http.interceptors.request.use(
 )
 
 http.interceptors.response.use(
-    function (response) {
-        if (response.status === 200)
-        {
+    function(response) {
+        if (response.status === 200) {
             if (response.data.message)
                 toast.success(response.data.message);
             return response.data;
-        }
-        else
+        } else
             return response;
     }
 )
-
 const httpApi = {
     get: http.get,
     post: http.post,
     put: http.put,
     delete: http.delete,
 };
-
 export default httpApi;

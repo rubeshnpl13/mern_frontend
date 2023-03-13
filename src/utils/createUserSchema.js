@@ -1,16 +1,14 @@
-function createUserSchema(name, value) 
-{
-    switch(name)
-    {
+function createUserSchema(name, value) {
+    switch (name) {
         case "name":
-            if(value === "")
+            if (value === "")
                 return "Name is required";
             else
                 return false
         case "email":
-            if(value === "")
+            if (value === "")
                 return "Email is required";
-            else if(!value.includes("@"))
+            else if (!value.includes("@"))
                 return "Invalid email address";
             else
                 return false

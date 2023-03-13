@@ -44,7 +44,7 @@ function Register() {
 
         if (isValid()) {
             try{
-                const res = await register(data);
+                const res = await register(data);//call axios from register
                 console.log(res);
                 navigate("/login");
             }catch(err)

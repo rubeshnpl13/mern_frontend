@@ -11,8 +11,11 @@ import { login } from "api/request.api";
 import UserContext from "store/context/UserContext";
 import { useContext } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 
 function Login() {
+    const navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
 
     const [data, setData] = useState({
@@ -47,6 +50,16 @@ function Login() {
             const res = await login(data);
             localStorage.setItem("token", res.data.accessToken);
             setUser(res.data.user);
+            if(res.data.user.role == "admin")
+            {
+                navigate("/admin");
+            }
+            else
+            {
+                navigate("/product");
+
+            }
+
         } else {
             console.log("Form validation failed");
         }
